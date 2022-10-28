@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 
 public class Main {
-	static MonsterZoo pz = new MonsterZoo();
 
 	public static void main(String[] args) {
 
-		setMonsterZukan();
+		pz = new MonsterZoo(generateMonsterZukan());
 
 		//1000ミリ秒（1秒）ずつ止まりながらpz.move()を呼び出し続ける
 		//手持ちのボールが無くなったら終了
@@ -34,7 +33,7 @@ public class Main {
 	}
 
 	//テスト用のモンスターデータを登録するメソッド
-	public static void setMonsterZukan(){
+	public static ArrayList<Monster> generateMonsterZukan(){
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 
 		monsters.add(new Monster("イガキン", 9));
@@ -60,8 +59,8 @@ public class Main {
 		monsters.add(new Monster("ミッツー", 8)); 
 		monsters.add(new Monster("ゾエサン", 5)); 
 		monsters.add(new Monster("キタバー", 3)); 
-
-		pz.setMonsterZukan(monsters);
+		
+		return monsters;
 	}
 
 }

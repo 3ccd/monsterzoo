@@ -15,6 +15,10 @@ public class MonsterZoo {
 
 	EggManager em = new EggManager(9, monsterZukan);
 
+	public MonsterZoo(ArrayList<Monster> zukan){
+		this.monsterZukan = zukan;
+	}
+
 	//呼び出すと1km distanceが増える
 	void move(){
 		this.distance++;
@@ -98,9 +102,5 @@ public class MonsterZoo {
 
 	public String[] getUserMonster() {
 		return userMonster;
-	}
-
-	public void setMonsterZukan(HashSet<Monster> monsterZukan) {
-		this.monsterZukan = monsterZukan;
 	}
 }
