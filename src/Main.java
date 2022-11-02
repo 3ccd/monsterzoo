@@ -11,8 +11,7 @@ public class Main {
 		while(true){
 			try {
 				Thread.sleep(1000);
-				if(pz.isPlay()){
-					pz.move();
+				if(pz.move()){
 					pz.printStatus();
 				}else{
 					break;
@@ -22,13 +21,7 @@ public class Main {
 			}
 		}
 
-		System.out.println("ボールがなくなった！");
-
-		for(int i=0;i<pz.getUserMonster().length;i++){
-			if(pz.getUserMonster()[i]!=null){
-				System.out.println(pz.getUserMonster()[i].getName()+"を捕まえた．");
-			}
-		}
+		pz.printUserMonsters();
 	}
 
 	//テスト用のモンスターデータを登録するメソッド
