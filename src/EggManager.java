@@ -9,22 +9,26 @@ public class EggManager{
     ArrayList<Monster> zukan;
     Integer pocket = 0;
 
-    public EggManager(Integer pocket, HashSet<Monster> zukan){
+    public EggManager(Integer pocket, ArrayList<Monster> zukan){
         this.pocket = pocket;
         this.zukan = zukan;
 		this.eggs = new ArrayList<Egg>();
     }
 
-    public ArrayList<Egg> nurtureEggs(){
-		ArrayList<Egg> hatched = new ArrayList<Egg>();
+    public ArrayList<Monster> nurtureEggs(){
+		ArrayList<Monster> hatched = new ArrayList<Monster>(); // 生まれたモンスター
+        ArrayList<Egg> hatchedEgg = new ArrayList<Egg>(); // 卵の殻
 		for(Egg egg : eggs){
 
-			Monster surprise = egg.nurture();
-			if(tmp == null) continue;
+			Monster surprise = egg.nurture(); // 卵を育てる
+			if(surprise == null) continue;
 
 			hatched.add(surprise);
-			eggs.remove(surprise);
+            hatchedEgg.add(egg);
 		}
+        for(Egg rmEgg : hatchedEgg){
+            eggs.remove(rmEgg);
+        }
 
 		return hatched;
 	}
@@ -37,7 +41,7 @@ public class EggManager{
 	}
 }
 
-private class Egg{
+class Egg{
     double lifeTime = 0.0;
     double distance = 0.0;
 	ArrayList<Monster> zukan;
@@ -56,7 +60,7 @@ private class Egg{
     }
 
     private Monster whoAmI(){
-		Interger index = (int)(this.zukan.size*Math.random());
-		return this.zukan.get();
+		int index = (int)(this.zukan.size()*Math.random());
+		return this.zukan.get(index);
     }
 }

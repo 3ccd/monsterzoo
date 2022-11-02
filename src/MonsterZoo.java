@@ -7,16 +7,17 @@ public class MonsterZoo {
 	int fruits=0;//ぶつけるとモンスターが捕まえやすくなるフルーツ
 
 	//ユーザがGetしたモンスター一覧
-	String userMonster[] = new String[100];
+	Monster userMonster[] = new Monster[100];
 
 	//モンスター図鑑．モンスターの名前とレア度(0.0~9.0)がそれぞれの配列に保存されている
 	//レア度が高いほうが捕まえにくい
-	HashSet<Monster> monsterZukan;
+	ArrayList<Monster> monsterZukan;
 
-	EggManager em = new EggManager(9, monsterZukan);
+	EggManager em;
 
 	public MonsterZoo(ArrayList<Monster> zukan){
 		this.monsterZukan = zukan;
+		this.em = new EggManager(9, monsterZukan);
 	}
 
 	//呼び出すと1km distanceが増える
@@ -35,7 +36,7 @@ public class MonsterZoo {
 		
 	}
 
-	private updateEggs(){
+	private void updateEggs(){
 		ArrayList<Monster> hatched = em.nurtureEggs();
 		if(hatched.size() > 0){
 			for(Monster mon : hatched){
@@ -60,8 +61,9 @@ public class MonsterZoo {
 	}
 
 	private void findMonster(){
-		int m = (int)(this.monsterZukan.length*Math.random());//monsterZukanからランダムにモンスターを出す
-		System.out.println(this.monsterZukan[m]+"が現れた！");
+		int m = (int)(this.monsterZukan.size()*Math.random());//monsterZukanからランダムにモンスターを出す
+		Monster monster = this.monsterZukan.get(m);
+		System.out.println(monster.getName()+"が現れた！");
 		for(int i=0;i<3&&this.balls>0;i++){//捕まえる or 3回ボールを投げるまで繰り返す
 			int r = (int)(6*Math.random());//0~5までの数字をランダムに返す
 			if(this.fruits>0){
@@ -69,38 +71,34 @@ public class MonsterZoo {
 				this.fruits--;
 				r = r * 2;
 			}
-			System.out.println(this.monsterZukan[m]+"にボールを投げた");
+			System.out.println(monster.getName()+"にボールを投げた");
 			this.balls--;
-			if(this.monsterRare[m]<=r){//monsterRare[m]の値がr以下の場合
-				System.out.println(this.monsterZukan[m]+"を捕まえた！");
+			if(monster.getRare()<=r){//monsterRare[m]の値がr以下の場合
+				System.out.println(monster.getName()+"を捕まえた！");
 				for(int j=0;j<userMonster.length;j++){
 					if(this.userMonster[j]==null){
-						this.userMonster[j]=this.monsterZukan[m];
+						this.userMonster[j]=monster;
 						break;
 					}
 				}
 				break;//ボール投げ終了
 			}else{
-				System.out.println(this.monsterZukan[m]+"に逃げられた！");
+				System.out.println(monster.getName()+"に逃げられた！");
 			}
 		}
 	}
 
-	
-
-	public double getDistance() {
-		return distance;
+	public void printStatus(){
+		System.out.println("手持ちのボールは"+this.balls+"個，フルーツは"+this.fruits+"個");
+		System.out.println(this.distance+"km歩いた．");
 	}
 
-	public int getBalls() {
-		return balls;
-	}
-
-	public int getFruits() {
-		return fruits;
-	}
-
-	public String[] getUserMonster() {
+	public Monster[] getUserMonster() {
 		return userMonster;
+	}
+
+	public boolean isPlay(){
+		if(balls > 0) return true;
+		return false;
 	}
 }

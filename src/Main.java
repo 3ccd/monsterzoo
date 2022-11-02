@@ -4,17 +4,16 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		pz = new MonsterZoo(generateMonsterZukan());
+		MonsterZoo pz = new MonsterZoo(generateMonsterZukan());
 
 		//1000ミリ秒（1秒）ずつ止まりながらpz.move()を呼び出し続ける
 		//手持ちのボールが無くなったら終了
 		while(true){
 			try {
 				Thread.sleep(1000);
-				if(pz.getBalls()>0){
+				if(pz.isPlay()){
 					pz.move();
-					System.out.println("手持ちのボールは"+pz.getBalls()+"個，フルーツは"+pz.getFruits()+"個");
-					System.out.println(pz.getDistance()+"km歩いた．");
+					pz.printStatus();
 				}else{
 					break;
 				}
@@ -27,7 +26,7 @@ public class Main {
 
 		for(int i=0;i<pz.getUserMonster().length;i++){
 			if(pz.getUserMonster()[i]!=null){
-				System.out.println(pz.getUserMonster()[i]+"を捕まえた．");
+				System.out.println(pz.getUserMonster()[i].getName()+"を捕まえた．");
 			}
 		}
 	}
