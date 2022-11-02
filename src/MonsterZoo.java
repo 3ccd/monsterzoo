@@ -58,15 +58,8 @@ public class MonsterZoo {
 	private void findZooStation(){
 		System.out.println("ズーstationを見つけた！");
 
-		int b=(int)(Math.random()*3);//ball,fruits,eggがランダムに出る
-		int f=(int)(Math.random()*2);
-		int e=(int)(Math.random()*2);
-		
-		System.out.println("ボールを"+b+"個，"+"フルーツを"+f+"個"+"卵を"+e+"個Getした！");
+		ZooStation.find(this.pocket, this.em);
 
-		this.pocket.addBall(b);
-		this.pocket.addFruits(f);
-		this.em.addEgg(e);
 
 	}
 
@@ -76,8 +69,8 @@ public class MonsterZoo {
 
 		System.out.println(name + "が現れた！");
 
-		for(int i=0; this.pocket.useBall(); i++){//捕まえる or 3回ボールを投げるまで繰り返す
-			if( i >= 3 )break;
+		for(int i=0; i < 3; i++){//捕まえる or 3回ボールを投げるまで繰り返す
+			if(! this.pocket.useBall())break;
 
 			boolean isCatch = false;
 			if(this.pocket.useFruit()){
@@ -109,5 +102,19 @@ public class MonsterZoo {
 		for (Monster monster : userMonster){
 			System.out.println(monster.getName()+"を捕まえた．");
 		}
+	}
+}
+
+class ZooStation{
+	static public void find(Pocket poc, EggManager em){
+		int b=(int)(Math.random()*3);//ball,fruits,eggがランダムに出る
+		int f=(int)(Math.random()*2);
+		int e=(int)(Math.random()*2);
+
+		poc.addBall(b);
+		poc.addFruits(f);
+		em.addEgg(e);
+
+		System.out.println("ボールを"+b+"個，"+"フルーツを"+f+"個"+"卵を"+e+"個Getした！");
 	}
 }
