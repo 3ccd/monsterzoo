@@ -16,7 +16,7 @@ public class MonsterZoo {
 
 	public MonsterZoo(ArrayList<Monster> zukan){
 		this.monsterZukan = zukan;
-		this.em = new EggManager(9, monsterZukan);
+		this.em = new EggManager(9, this.monsterZukan);
 	}
 
 	//呼び出すと1km distanceが増える
@@ -30,10 +30,13 @@ public class MonsterZoo {
 
 		int flg1 = (int)(Math.random()*10);//0,1の場合はズーstation，7~9の場合はモンスター
 		if(flg1<=1){
-			System.out.println("ズーstationを見つけた！");
+
 			findZooStation();
+
 		}else if(flg1>=7){
+
 			findMonster();
+
 		}
 
 		updateEggs();
@@ -53,17 +56,18 @@ public class MonsterZoo {
 	}
 
 	private void findZooStation(){
+		System.out.println("ズーstationを見つけた！");
+
 		int b=(int)(Math.random()*3);//ball,fruits,eggがランダムに出る
 		int f=(int)(Math.random()*2);
 		int e=(int)(Math.random()*2);
+		
 		System.out.println("ボールを"+b+"個，"+"フルーツを"+f+"個"+"卵を"+e+"個Getした！");
 
 		this.pocket.addBall(b);
 		this.pocket.addFruits(f);
+		this.em.addEgg(e);
 
-		if(e>=1){//卵を1つ以上Getしたら
-			em.addEgg();
-		}
 	}
 
 	private void findMonster(){
@@ -106,54 +110,4 @@ public class MonsterZoo {
 			System.out.println(monster.getName()+"を捕まえた．");
 		}
 	}
-}
-
-class Pocket{
-
-	int balls = 0;
-	int fruits = 0;
-
-	public Pocket(int balls, int fruits){
-		this.balls = balls;
-		this.fruits = fruits;
-	}
-
-	public void addBall(int ball){
-		this.balls += ball;
-	}
-
-	public void addFruits(int fruit){
-		this.fruits += fruit;
-	}
-
-	public boolean useBall(){
-		if(this.balls > 0){
-			this.balls--;
-			return true; 
-		}else{
-			return false;
-		}
-	}
-
-	public boolean useFruit(){
-		if(this.fruits > 0){
-			this.fruits--;
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public boolean ballExists(){
-		if( this.balls > 0 ){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public void print(){
-		System.out.println("手持ちのボールは"+ this.balls + "個，フルーツは"+this.fruits+"個");
-	}
-
 }

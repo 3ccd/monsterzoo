@@ -33,11 +33,14 @@ public class EggManager{
 		return hatched;
 	}
 
-    public void addEgg(){
-		//egg[]に10個以上卵がない場合は新しい卵データをセットする
-		if(this.eggs.size() >= pocket) return;
+    public void addEgg(int egg){
 
-		this.eggs.add(new Egg(3.0, this.zukan));
+        for (int i = 0; i < egg; i++){
+		    //egg[]に10個以上卵がない場合は新しい卵データをセットする
+		    if(this.eggs.size() >= pocket) break;
+            
+		    this.eggs.add(new Egg(3.0, this.zukan));
+        }
 	}
 }
 
